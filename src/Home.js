@@ -1,9 +1,13 @@
 const Home = () => {
     const contenu = "Page d'acceuil";
+    const colorText = {
+      color: '#00FFFF',
+    };
+
     return (
-        <div className="home">
-            <h2> { contenu } </h2>
-        </div>
+      <div className="home" style={ colorText }>
+        <h2> {contenu} </h2>
+      </div>
     );
 }
  

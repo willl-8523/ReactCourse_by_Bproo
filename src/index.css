@@ -8,10 +8,10 @@
 /* style pour le contenu de la page home */
 
 /* content style */
-.contenu{
+/* .contenu{
   width: 760px;
   margin: 0 auto;
-}
+} */
 .bloglist{
   display: flex;
   flex-direction: column;

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import BlogList from './BLogList';
 
 const Home = () => {
@@ -90,10 +90,37 @@ const Home = () => {
 
   // Supprimer un article uniquement dans le DOM
   const deleteOneArticle = (id) => {
-    const newBlogs = blogs.filter( (blog) => blog.id !== id);
+    const newBlogs = blogs.filter((blog) => blog.id !== id);
     setBLog(newBlogs);
-  }
-  
+  };
+
+  // return (
+  //   <div className="home">
+  //     <BlogList
+  //       blogs={blogs}
+  //       title={'Liste des blogs'}
+  //       deleteOneArticle={deleteOneArticle}
+  //     />
+  //   </div>
+  // );
+
+  // **************** UTILISATION DE USEEFFECT (doit être importé) *****************
+
+  // Est executé chaque fois qu'on actualise la page ou à chaque MAJ
+  // Si useEffect a un param dans son tableau il sera aussi executer
+  // useEffect(() => {
+  //   console.log('useEffect a été appelé');
+  // });
+
+  // ***************** AJOUTER DES DEPENDANCES DANS USEEFFECT *****************
+
+  // Afficher uniquement au premier chargement de la page
+  const [name, setName] = useState('Guy');
+
+  useEffect(() => {
+    console.log('useEffect a été appelé');
+  }, [name]);
+
   return (
     <div className="home">
       <BlogList
@@ -101,6 +128,10 @@ const Home = () => {
         title={'Liste des blogs'}
         deleteOneArticle={deleteOneArticle}
       />
+      <button className="btn btn-primary" onClick={() => setName('Yves')}>
+        Changer le nom
+      </button>
+      <p>{name}</p>
     </div>
   );
 }

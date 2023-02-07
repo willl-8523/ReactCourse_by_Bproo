@@ -6,7 +6,7 @@ const Navbar = () => {
       aria-label="Third navbar example"
     >
       <div className="container">
-        <a className="navbar-brand" href="#">
+        <a className="navbar-brand" href="/">
           BlogDev
         </a>
         <button
@@ -27,19 +27,19 @@ const Navbar = () => {
         >
           <ul className="navbar-nav mb-2 mb-sm-0">
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              <a className="nav-link" href="/">
                 New Article
               </a>
             </li>
 
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              <a className="nav-link" href="/">
                 Register
               </a>
             </li>
 
             <li className="nav-item">
-              <a className="nav-link buttonLogin" href="#">
+              <a className="nav-link buttonLogin" href="/">
                 Login
               </a>
             </li>

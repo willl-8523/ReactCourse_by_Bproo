@@ -67,7 +67,7 @@ const Home = () => {
       },
       {
         id: 3,
-        title: 'Consectetur adipiscing elit',
+        title: 'La nuit des codeurs',
         body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Congue mauris rhoncus aenean vel elit scelerisque mauris.',
         author: 'Eget',
         date: '07/02/2023',
@@ -76,7 +76,10 @@ const Home = () => {
 
     return (
       <div className="home">
-        <BlogList blogs={ blogs } title={ 'Liste des blogs' } />
+        <BlogList blogs={blogs} title={'Liste des blogs'} />
+
+        {/* Afficher les articles d'Eget (avec la fction filter de js) */}
+        <BlogList blogs={blogs.filter(blog => blog.author === 'Eget')} title={'Liste des blogs d\'Eget'} />
       </div>
     );
 

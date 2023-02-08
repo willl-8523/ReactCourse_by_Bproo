@@ -146,23 +146,59 @@ const Home = () => {
 
   const [isLoading, setIsLoading] = useState(true);
 
+  // useEffect(() => {
+  //   // utiliser setTimeout si on veut recuperer les données de la db locale (db.json)
+  //   setTimeout(() => {
+  //     fetch('http://localhost:8000/blogs')
+  //       .then((response) => {
+  //         return response.json();
+  //       })
+  //       .then((data) => {
+  //         setBLog(data);
+  //         setIsLoading(false);
+  //       });
+  //   }, 2000);
+  // }, []);
+
+  // return (
+  //   <div className="home">
+  //     {isLoading && <div> Chargement en cours ... </div>}
+  //     {blogs && <BlogList blogs={blogs} title={'Liste des blogs'} />}
+  //   </div>
+  // );
+
+  // ************** GERER LES ERREURS EN REACT *****************
+
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     // utiliser setTimeout si on veut recuperer les données de la db locale (db.json)
-      setTimeout(() => {
-        fetch('http://localhost:8000/blogs')
-          .then((response) => {
-            return response.json();
-          })
-          .then((data) => {
-            setBLog(data);
-            setIsLoading(false);
-          });
-      }, 2000);
+    setTimeout(() => {
+      fetch('http://localhost:8000/blogs')
+        .then((response) => {
+          // console.log(response.ok);
+          if (!response.ok) {
+            throw Error("Une erreur est survenue"); // Erreur liée au code js
+          }
+          return response.json();
+        })
+        .then((data) => {
+          setBLog(data);
+          setIsLoading(false);
+          setError(null);
+        })
+        .catch( err => { // erreurs liées aux serveurs (servuer introuvable)
+          console.log(err.message);
+          setError(err.message);
+          setIsLoading(false);
+        });
+    }, 2000);
   }, []);
 
   return (
     <div className="home">
-      {isLoading && (<div> Chargement en cours ... </div>)}
+      {error && <div style={ {'color': 'red'} }><h1>{ error }</h1> </div>}
+      {isLoading && <div> Chargement en cours ... </div>}
       {blogs && <BlogList blogs={blogs} title={'Liste des blogs'} />}
     </div>
   );

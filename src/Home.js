@@ -75,10 +75,10 @@ const Home = () => {
   //   // );
   //   // ************** AJOUTER UNE FONCTON COMME PROPS EN REACT *****************
   //   // Supprimer un article uniquement dans le DOM
-  const deleteOneArticle = (id) => {
-    const newBlogs = blogs.filter((blog) => blog.id !== id);
-    setBLog(newBlogs);
-  };
+  // const deleteOneArticle = (id) => {
+  //   const newBlogs = blogs.filter((blog) => blog.id !== id);
+  //   setBLog(newBlogs);
+  // };
   //   // return (
   //   //   <div className="home">
   //   //     <BlogList
@@ -123,23 +123,47 @@ const Home = () => {
 
   const [blogs, setBLog] = useState(null);
 
+  // useEffect(() => {
+  //   fetch('http://localhost:8000/blogs')
+  //     .then((response) => {
+  //       return response.json();
+  //     })
+  //     .then((data) => {
+  //       setBLog(data);
+  //     });
+  // }, []);
+
+  // return (
+  //   <div className="home">
+  //     { blogs && <BlogList
+  //       blogs={blogs}
+  //       title={'Liste des blogs'}
+  //     />}
+  //   </div>
+  // );
+
+  // ************** AJOUTER BARRE DE CHARGEMENT EN REACT *****************
+
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
-    fetch('http://localhost:8000/blogs')
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        setBLog(data);
-      });
+    // utiliser setTimeout si on veut recuperer les données de la db locale (db.json)
+      setTimeout(() => {
+        fetch('http://localhost:8000/blogs')
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            setBLog(data);
+            setIsLoading(false);
+          });
+      }, 2000);
   }, []);
 
   return (
     <div className="home">
-      { blogs && <BlogList
-        blogs={blogs}
-        title={'Liste des blogs'}
-        deleteOneArticle={deleteOneArticle}
-      />}
+      {isLoading && (<div> Chargement en cours ... </div>)}
+      {blogs && <BlogList blogs={blogs} title={'Liste des blogs'} />}
     </div>
   );
 }

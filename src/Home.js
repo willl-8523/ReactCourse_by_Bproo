@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
 import BlogList from './BLogList';
+import useFetch from './useFetch';
 
 const Home = () => {
   // const contenu = "Page d'acceuil";
@@ -94,9 +94,7 @@ const Home = () => {
   //   // useEffect(() => {
   //   //   console.log('useEffect a été appelé');
   //   // });
-
   //   // ***************** AJOUTER DES DEPENDANCES DANS USEEFFECT *****************
-
   //   // Afficher uniquement au premier chargement de la page
   // const [name, setName] = useState('Guy');
   // useEffect(() => {
@@ -115,14 +113,10 @@ const Home = () => {
   //     <p>{name}</p>
   //   </div>
   // );
-
   // *** UTILISATION DE JSON SERVER (https://github.com/typicode/json-server) ***
   // -> Lancer le json server => npx json-server --watch data/db.json --port 8000
-
   // ************** RECUPERATION DES DONNEES COTE SERVEUR *****************
-
-  const [blogs, setBLog] = useState(null);
-
+  // const [blogs, setBLog] = useState(null);
   // useEffect(() => {
   //   fetch('http://localhost:8000/blogs')
   //     .then((response) => {
@@ -132,7 +126,6 @@ const Home = () => {
   //       setBLog(data);
   //     });
   // }, []);
-
   // return (
   //   <div className="home">
   //     { blogs && <BlogList
@@ -141,11 +134,8 @@ const Home = () => {
   //     />}
   //   </div>
   // );
-
   // ************** AJOUTER BARRE DE CHARGEMENT EN REACT *****************
-
-  const [isLoading, setIsLoading] = useState(true);
-
+  // const [isLoading, setIsLoading] = useState(true);
   // useEffect(() => {
   //   // utiliser setTimeout si on veut recuperer les données de la db locale (db.json)
   //   setTimeout(() => {
@@ -159,41 +149,49 @@ const Home = () => {
   //       });
   //   }, 2000);
   // }, []);
-
   // return (
   //   <div className="home">
   //     {isLoading && <div> Chargement en cours ... </div>}
   //     {blogs && <BlogList blogs={blogs} title={'Liste des blogs'} />}
   //   </div>
   // );
-
   // ************** GERER LES ERREURS EN REACT *****************
+  // const [error, setError] = useState(null);
+  // useEffect(() => {
+  //   // utiliser setTimeout si on veut recuperer les données de la db locale (db.json)
+  //   setTimeout(() => {
+  //     fetch('http://localhost:8000/blogs')
+  //       .then((response) => {
+  //         // console.log(response.ok);
+  //         if (!response.ok) {
+  //           throw Error("Une erreur est survenue"); // Erreur liée au code js
+  //         }
+  //         return response.json();
+  //       })
+  //       .then((data) => {
+  //         setBLog(data);
+  //         setIsLoading(false);
+  //         setError(null);
+  //       })
+  //       .catch( err => { // erreurs liées aux serveurs (servuer introuvable)
+  //         console.log(err.message);
+  //         setError(err.message);
+  //         setIsLoading(false);
+  //       });
+  //   }, 2000);
+  // }, []);
+  // return (
+  //   <div className="home">
+  //     {error && <div style={ {'color': 'red'} }><h1>{ error }</h1> </div>}
+  //     {isLoading && <div> Chargement en cours ... </div>}
+  //     {blogs && <BlogList blogs={blogs} title={'Liste des blogs'} />}
+  //   </div>
+  // );
 
-  const [error, setError] = useState(null);
+  // ************** CREER ET PERSONALISER SES HOOKS *****************
+  // NB: Look at useFetcher.js
 
-  useEffect(() => {
-    // utiliser setTimeout si on veut recuperer les données de la db locale (db.json)
-    setTimeout(() => {
-      fetch('http://localhost:8000/blogs')
-        .then((response) => {
-          // console.log(response.ok);
-          if (!response.ok) {
-            throw Error("Une erreur est survenue"); // Erreur liée au code js
-          }
-          return response.json();
-        })
-        .then((data) => {
-          setBLog(data);
-          setIsLoading(false);
-          setError(null);
-        })
-        .catch( err => { // erreurs liées aux serveurs (servuer introuvable)
-          console.log(err.message);
-          setError(err.message);
-          setIsLoading(false);
-        });
-    }, 2000);
-  }, []);
+  const { data: blogs, isLoading, error } = useFetch('http://localhost:8000/blogs');
 
   return (
     <div className="home">

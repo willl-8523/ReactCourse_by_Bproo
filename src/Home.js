@@ -191,15 +191,27 @@ const Home = () => {
   // ************** CREER ET PERSONALISER SES HOOKS *****************
   // NB: Look at useFetcher.js
 
-  const { data: blogs, isLoading, error } = useFetch('http://localhost:8000/blogs');
+  const {
+    data: blogs,
+    isLoading,
+    error,
+  } = useFetch('http://localhost:8000/blogs');
 
   return (
     <div className="home">
-      {error && <div style={ {'color': 'red'} }><h1>{ error }</h1> </div>}
+      {error && (
+        <div style={{ color: 'red' }}>
+          <h1>{error}</h1>{' '}
+        </div>
+      )}
       {isLoading && <div> Chargement en cours ... </div>}
       {blogs && <BlogList blogs={blogs} title={'Liste des blogs'} />}
     </div>
   );
+
+  // ************************ LES ROUTES EN REACT ***************************
+
+  
 }
 
  

@@ -7,25 +7,34 @@ const useFetch = (url) => {
     const [data, setData] = useState(null);
 
     useEffect(() => {
+        const abortCont = new AbortController;
+
         setTimeout(() => {
-            fetch(url)
-                .then((response) => {
-                    if (!response.ok) {
-                        throw Error("Une erreur est survenue"); 
-                    }
-                    return response.json();
-                })
-                .then((data) => {
-                    setData(data);
-                    setIsLoading(false);
-                    setError(null);
-                })
-                .catch( err => {
+            fetch(url, { signal: abortCont.signal })
+              .then((response) => {
+                if (!response.ok) {
+                  throw Error('Une erreur est survenue');
+                }
+                return response.json();
+              })
+              .then((data) => {
+                setData(data);
+                setIsLoading(false);
+                setError(null);
+              })
+              .catch((err) => {
+                if ( err.name === "AbortError") {
+                    console.log('fetch a été stoppé');
+                } else {
                     setError(err.message);
                     setIsLoading(false);
-                });
+                }
+              });
         }, 2000);
-  }, [url]);
+
+        return () => abortCont.abort();
+
+    }, [url]);
 
     return {data, isLoading, error};
 }

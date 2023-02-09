@@ -1,12 +1,16 @@
+import { Link } from "react-router-dom";
+
 const BlogList = ({ blogs, title, deleteOneArticle }) => {
   return (
     <div className="bloglist">
       <h2> {title} </h2>
       {blogs.map((blog) => (
         <div className="blog" key={blog.id}>
-          <a href="\" className="blog-titre">
+          
+          <Link to={`/blogs/${blog.id}`} className="blog-titre">
             {blog.title}
-          </a>
+          </Link>
+
           <p className="blog-author">
             Publier par {blog.author}
             <small className="blog-date"> le {blog.date}</small>

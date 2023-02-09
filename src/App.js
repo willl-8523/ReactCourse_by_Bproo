@@ -3,6 +3,7 @@ import Navbar from './Navbar';
 import Home from './Home';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Ajouter from './Ajouter';
+import BlogDetail from './BlogDetail';
 
 function App() {
   // return (
@@ -30,6 +31,10 @@ function App() {
             </Route>
             <Route path={'/ajouter'}>
               <Ajouter />
+            </Route>
+            {/* Pour dire que l'id est dynamique */}
+            <Route path={'/blogs/:id'}>
+              <BlogDetail />
             </Route>
           </Switch>
         </div>

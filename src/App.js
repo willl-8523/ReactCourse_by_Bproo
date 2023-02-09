@@ -1,8 +1,8 @@
 import './App.css';
-import Home from './Home';
-import './Navbar';
 import Navbar from './Navbar';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Home from './Home';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Ajouter from './Ajouter';
 
 function App() {
   // return (
@@ -16,6 +16,7 @@ function App() {
 
   /* ************************ LES ROUTES EN REACT ***************************
     -> Installation => npm install react-router-dom@5
+    -> Redemarrer le serveur local
   */
 
   return (
@@ -24,8 +25,11 @@ function App() {
         <Navbar />
         <div className="container">
           <Switch>
-            <Route path={'/'}>
+            <Route exact path={'/'}>
               <Home />
+            </Route>
+            <Route path={'/ajouter'}>
+              <Ajouter />
             </Route>
           </Switch>
         </div>

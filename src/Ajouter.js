@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 const Ajouter = () => {
     // Use Array
@@ -7,6 +8,9 @@ const Ajouter = () => {
     const [ body, setBody ] = useState('');
     const url = 'http://localhost:8000/blogs';
     const [ isLoading, setIsLoading ] = useState(false);
+
+    // Initialiser la page de redirection
+    const history = useHistory();
     
     const handleBLogAdding = (e) => {
       e.preventDefault();
@@ -21,8 +25,7 @@ const Ajouter = () => {
       setIsLoading(true);
 
       // On utilise le setTimeout car la bdd est en local donc c'est pour simuler l'attente
-      setTimeout(() => {
-        
+      setTimeout(() => { 
         fetch(url, 
           {
             method: 'POST',
@@ -32,6 +35,12 @@ const Ajouter = () => {
         ).then( () => {
           console.log('article ajouter avec succes.');
           setIsLoading(false);
+
+          // Rentre une étape en arrière
+          // history.go(-1);
+
+          // Rediriger à une autre page
+          history.push('/');
         })
       }, 2000);
     }

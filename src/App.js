@@ -4,6 +4,7 @@ import Home from './Home';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Ajouter from './Ajouter';
 import BlogDetail from './BlogDetail';
+import NotFound from './NotFound';
 
 function App() {
   // return (
@@ -35,6 +36,10 @@ function App() {
             {/* Pour dire que l'id est dynamique */}
             <Route path={'/blogs/:id'}>
               <BlogDetail />
+            </Route>
+            {/* Il faut se rassurer que cette route soit en dernier */}
+            <Route path={'*'}>
+              <NotFound />
             </Route>
           </Switch>
         </div>

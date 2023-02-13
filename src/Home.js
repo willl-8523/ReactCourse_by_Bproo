@@ -191,11 +191,18 @@ const Home = () => {
   // ************** CREER ET PERSONALISER SES HOOKS *****************
   // NB: Look at useFetcher.js
 
+  // const {
+  //   data: blogs,
+  //   isLoading,
+  //   error,
+  // } = useFetch('http://localhost:8000/blogs');
+
+  /* Afficher les données de la bdd par id decroissant */
   const {
     data: blogs,
     isLoading,
     error,
-  } = useFetch('http://localhost:8000/blogs');
+  } = useFetch('http://localhost:8000/blogs?_sort=id&_order=desc');
 
   return (
     <div className="home">

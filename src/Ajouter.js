@@ -1,16 +1,55 @@
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 const Ajouter = () => {
     // Use Array
-    const [ title, setTitle ] = useState();
-    const [ author, setAuthor ] = useState();
-    const [ content, setContent ] = useState();
+    const [ title, setTitle ] = useState('');
+    const [ author, setAuthor ] = useState('');
+    const [ body, setBody ] = useState('');
+    const url = 'http://localhost:8000/blogs';
+    const [ isLoading, setIsLoading ] = useState(false);
+
+    // Initialiser la page de redirection
+    const history = useHistory();
+    
+    const handleBLogAdding = (e) => {
+      e.preventDefault();
+
+      const tmp_date = new Date().toISOString().split('T');
+      const date = `${tmp_date[0]} ${tmp_date[1].split('.')[0]}`;
+
+      // Les propiétés de chaque article dans data/db.json
+      // NB la propiété id d'ajoute automatiquement
+      const blog = { title, author, body, date };
+      
+      setIsLoading(true);
+
+      // On utilise le setTimeout car la bdd est en local donc c'est pour simuler l'attente
+      setTimeout(() => { 
+        fetch(url, 
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify(blog)
+          }
+        ).then( () => {
+          console.log('article ajouter avec succes.');
+          setIsLoading(false);
+
+          // Rentre une étape en arrière
+          // history.go(-1);
+
+          // Rediriger à une autre page
+          history.push('/');
+        })
+      }, 2000);
+    }
 
     return (
       <div className="create">
         <h2 className="mb-5">Ajouter un nouveau article</h2>
 
-        <form>
+        <form onSubmit={handleBLogAdding}>
           <div className="mb-3">
             <label
               htmlFor="exampleInputEmail1"
@@ -26,7 +65,7 @@ const Ajouter = () => {
               //   defaultValue={title} //   defaultValue => désigne la valeur par defaut de l'input
 
               // Recuperer la valeur de l'input
-              value={ title }
+              value={title}
               onChange={(e) => setTitle(e.target.value)}
               required
             />
@@ -43,7 +82,7 @@ const Ajouter = () => {
               id="exampleSelect"
               className="form-select"
               aria-label="Default select example"
-              value={ author }
+              value={author}
               onChange={(e) => setAuthor(e.target.value)}
             >
               <option value=""></option>
@@ -64,14 +103,21 @@ const Ajouter = () => {
               type="textarea"
               className="form-control"
               id="exampleInputContent"
-              value={ content }
-              onChange={(e) => setContent(e.target.value)}
+              value={body}
+              onChange={(e) => setBody(e.target.value)}
             ></textarea>
           </div>
 
-          <button type="submit" className="btn btn-primary d-block">
-            Créer article
-          </button>
+          {!isLoading && (
+            <button type="submit" className="btn btn-primary d-block">
+              Créer article
+            </button>
+          )}
+          {isLoading && (
+            <button type="submit" className="btn btn-primary d-block" disabled>
+              Encours de chargement...
+            </button>
+          )}
         </form>
       </div>
     );

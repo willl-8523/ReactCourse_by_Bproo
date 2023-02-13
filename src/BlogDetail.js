@@ -20,12 +20,12 @@ const BlogDetail = () => {
           <div className="blog">
             <h2 className="blog-titre">{blog.title}</h2>
             <small className="blog-publication-date">{`Publier le: ${blog.date}`}</small>
-            <p className="blog-body">{blog.body}</p>
+            <p className="blog-body text-break">{blog.body}</p>
             <p className="mb-5 blog-author">{`Publier par: ${blog.author}`}</p>
-            <button
-              className="btn btn-primary"
-            >
-            <Link to={'/'} className='text-white text-decoration-none'> Retour </Link> 
+            <button className="btn btn-primary">
+              <Link to={'/'} className="text-white text-decoration-none">
+                Retour
+              </Link>
             </button>
           </div>
         )}

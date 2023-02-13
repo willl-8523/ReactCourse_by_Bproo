@@ -1,9 +1,22 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import useFetch from "./useFetch";
 
 const BlogDetail = () => {
     const { id } = useParams();
     const { data: blog, isLoading, error } = useFetch(`http://localhost:8000/blogs/${ id }`);
+    const history = useHistory()
+
+    const handleDelete = () => {
+      window.confirm('Êtes vous sur ?');
+      
+      fetch(`http://localhost:8000/blogs/${id}`, {
+        method: "DELETE",
+      }).then( () => {
+        console.log('Suppression Ok');
+        history.push('/');
+      });
+    };
+
     return (
       <div className="detail-blog">
         <h1>Detail article {id}</h1>
@@ -22,10 +35,13 @@ const BlogDetail = () => {
             <small className="blog-publication-date">{`Publier le: ${blog.date}`}</small>
             <p className="blog-body text-break">{blog.body}</p>
             <p className="mb-5 blog-author">{`Publier par: ${blog.author}`}</p>
-            <button className="btn btn-primary">
+            {/* <button className="btn btn-primary">
               <Link to={'/'} className="text-white text-decoration-none">
                 Retour
               </Link>
+            </button> */}
+            <button className="btn btn-primary" onClick={ handleDelete }>
+              Supprimer
             </button>
           </div>
         )}

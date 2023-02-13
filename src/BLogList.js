@@ -17,12 +17,12 @@ const BlogList = ({ blogs, title, deleteOneArticle }) => {
           </p>
 
           {/* onClick={ () => deleteOneArticle(blog.i) => On utilise une fonction anonyme pour que la fonction ne declenche pas au chargement de la page */}
-          <button
+          {/* <button
             className="btn btn-primary"
             onClick={() => deleteOneArticle(blog.id)}
           >
             Supprimer article
-          </button>
+          </button> */}
         </div>
       ))}
     </div>
